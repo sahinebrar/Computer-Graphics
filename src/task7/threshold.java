@@ -239,8 +239,6 @@ public class threshold extends javax.swing.JFrame {
             histData[h]++;
             ptr++;
         }
-
-// Total number of pixels
         int total = srcData.length;
 
         float sum = 0;
@@ -256,25 +254,22 @@ public class threshold extends javax.swing.JFrame {
         threshold = 0;
 
         for (int t = 0; t < 256; t++) {
-            wB += histData[t];               // Weight Background
+            wB += histData[t];               
             if (wB == 0) {
                 continue;
             }
 
-            wF = total - wB;                 // Weight Foreground
+            wF = total - wB;                 
             if (wF == 0) {
                 break;
             }
 
             sumB += (float) (t * histData[t]);
 
-            float mB = sumB / wB;            // Mean Background
-            float mF = (sum - sumB) / wF;    // Mean Foreground
-
-            // Calculate Between Class Variance
+            float mB = sumB / wB;            
+            float mF = (sum - sumB) / wF;    
             float varBetween = (float) wB * (float) wF * (mB - mF) * (mB - mF);
 
-            // Check if new maximum found
             if (varBetween > varMax) {
                 varMax = varBetween;
                 threshold = t;
